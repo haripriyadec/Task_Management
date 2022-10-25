@@ -1,0 +1,10 @@
+.uploadButton {
+    display: none;
+  }
+  .uploadLabel {
+    border: 1px solid rgba(241, 187, 10, 0.97);
+    display: inline-block;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }

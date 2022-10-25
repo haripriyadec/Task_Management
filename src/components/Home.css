@@ -1,0 +1,38 @@
+.home
+{
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.card-home
+{
+
+    height: fit-content;
+    margin-bottom: 1cm;
+    width:50%;
+    border-width: 5px;
+}
+
+.req
+{
+    color: rgb(246, 7, 7);
+    
+}
+
+h1
+{
+    margin-top: 50px;
+    font-family: sans-serif;
+}
+
+::-webkit-scrollbar
+{
+    display: none;
+}
+
+.btt
+{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}

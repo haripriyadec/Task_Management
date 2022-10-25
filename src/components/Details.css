@@ -1,0 +1,71 @@
+.card-image
+{
+    
+        text-align: center;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        width: 6cm;
+        height: 6cm;
+        border-radius: 50%;
+        margin-bottom: 1cm;
+}
+
+
+
+
+.uploadButton {
+    display: none;
+  }
+  .uploadLabel {
+    border: 1px solid rgba(241, 187, 10, 0.97);
+    display: inline-block;
+    padding: 7px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+
+
+.details
+{
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.card-details
+{
+
+    height: fit-content;
+    margin-bottom: 1cm;
+    width:50%;
+    border-width: 5px;
+}
+
+.req
+{
+    color: rgb(246, 7, 7);
+    
+}
+
+h1
+{
+    margin-top: 50px;
+    font-family: sans-serif;
+}
+
+::-webkit-scrollbar
+{
+    display: none;
+}
+
+
+.btt
+{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 0.5cm;
+    margin-right: 0.5cm;
+}

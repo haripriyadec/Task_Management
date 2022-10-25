@@ -1,0 +1,53 @@
+.link
+{
+  cursor: pointer;
+   color: rgb(226, 43, 43);
+}
+
+card-title
+{
+    text-align: center;
+}
+
+.login
+{
+    font-family: sans-serif ;
+    flex-direction: column;
+    background-color: aliceblue;
+}
+
+.block {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #347ce7;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+
+  .title
+  {
+    background-color:azure;
+     margin-bottom: 2rem;
+  }
+
+  .card-login
+  {
+    border-width: 5px;
+    border-color:rgb(103, 103, 189);
+    border-radius: 5%;
+  }
+
+  h4
+  {
+    text-decoration-color: blueviolet;
+    font-family:sans-serif
+  }
+
+  h2
+  {
+    font-family: Arial, Helvetica, sans-serif;
+  }
