@@ -53,6 +53,8 @@ function Login() {
       //console.log(user);
 }
 
+
+
   const handleChangePassword=()=>
   {
 
@@ -146,6 +148,8 @@ function Login() {
         //setLogin(!login);
   }
 
+
+
   
 
 
@@ -221,9 +225,15 @@ function Login() {
             login
        </Button>
 
+        <div  style={{ display:'flex' , justifyContent:'space-between' }}  >
+
        <a className=" link " onClick={()=>{  setLogin(!login);}} >
             Change password
        </a>
+
+      
+
+       </div>
    
     </Card.Body>
   </Card>
@@ -241,7 +251,7 @@ function Login() {
       <div>
       <div className='login'  style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
       
-       <Card  style={{width:'30rem',height:'27rem'}} className="card-login">
+       <Card  style={{width:'30rem',height:'30rem'}} className="card-login">
       <Card.Body>
 
     <Form>
@@ -270,7 +280,8 @@ function Login() {
   </Form.Group>
     </Form>
 
-    <Button className="block" onClick={ handleChangePassword }>Change password</Button>
+    <Button className="block mb-3" onClick={ handleChangePassword }>Change password</Button>
+    <a style={ { display:'flex' ,  justifyContent:'center' , cursor:'pointer', textDecoration:'underline'  } } onClick={ ()=>{  setLogin(!login) }}>Go to Login </a>
 
     </Card.Body>
     </Card>

@@ -28,9 +28,18 @@ function Home(props) {
   const [lastname,setLastName]=useState("");
   const [email,setEmail]=useState("");
 
-  const [candidateEmail,setCandidateEmail]=useState()
-  const [candidatePassword,setCandidatePassword]=useState()
+  // const [candidateEmail,setCandidateEmail]=useState()
+  // const [candidatePassword,setCandidatePassword]=useState()
+  // const [candidateDepartment,setCandidateDepartment]=useState()
+  // const [candidateSalary,setCandidateSalary]=useState()
 
+
+    var cand={
+          'cemail':'',
+          'cpassword':'',
+          'cdept':'',
+          'csal':''
+    }
 
     
 
@@ -75,14 +84,24 @@ function Home(props) {
      
         var cp = (passwordGenerator());
 
-        setCandidatePassword(cp);
+       cand['cpassword']=cp;
 
-      document.getElementById("cpassword").value=cp;
+        document.getElementById("cpassword").value=cp;
 
-          console.log(candidateEmail, document.getElementById("cpassword").value);
+        //  console.log(candidateEmail, document.getElementById("cpassword").value);
 
 
-          axios.post(`http://localhost:8017/addCandidate/${candidateEmail}/${cp}`).then(res=>{
+          console.log(cand);
+
+          axios({
+            method:'POST',
+            url:`http://localhost:8017/addCandidate`,
+            headers:{
+              'Authorization':'Bearer '  + localStorage.getItem('USER_KEY'),
+              'Content-Type': 'application/json'
+          },
+           data:cand
+          }).then(res=>{
             console.log(res);
 
             if(res.data==false)
@@ -180,7 +199,7 @@ function Home(props) {
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
-        <input type="email"  onChange={e=>{setEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='email' />
+        <input type="email"   onChange={e=>{setEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='email' />
         </div>
         </div>
         <div class="form-group row">
@@ -237,7 +256,19 @@ function Home(props) {
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
-        <input type="email"  onChange={e=>{setCandidateEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
+        <input type="email"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
+        </div>
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Department
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter department' name='cdept' />
+        </div>
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Monthly Pay
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="number"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter pay' name='csal' />
         </div>
         </div>
         <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="cpassword"  id="cpassword"></input>
