@@ -4,8 +4,18 @@ import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 
 function OfferLetter() {
+
+
+  //  var department = JSON.parse(localStorage.getItem('userdata')).department.department;
+
+  
+
   return (
     <div><Navbar/>
+
+      
+        {/* Hello  {department} */}
+
         <div style={{display:"flex",height:440,alignItems:"center",justifyContent:"center"}}>
      
      <Card

@@ -16,6 +16,8 @@ const Reports = () => {
   
     const[show,setShow]=useState(false);
 
+    const [authid,setAuthId]=useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
+
     const [pic,setPic]=useState(profilepic);
 
       async function charan(){
@@ -54,6 +56,34 @@ const Reports = () => {
 
   }    
 
+
+      // const canddet={
+      //         'firstname':'',
+      //         'middlename':'',
+      //         'lastname':'',
+      //         'fathername':'',
+      //         'mothername':'',
+      //         'mobilenumber':'',
+      //         'alternatemobilenumber':'',
+      //         'fathermobilenumber':'',
+      //         'mothermobilenumber':'',
+      //         'addressone':'',
+      //         'addresstwo':'',
+      //         'dateofbirth':'',
+      //         'location':'',
+      //         'department':'',
+      //         'salary' : '',
+      //         'pincode':'',
+      //         'personalemail':'',
+      //         'profilepic':''
+
+      // }
+
+
+
+      // const [cand,setCand]=useState(canddet);
+
+      
 
    const [details,setDetails]=useState(initialValue);
 
@@ -141,6 +171,38 @@ const Reports = () => {
             document.getElementById('save').disabled=false;
   } 
 
+
+    const viewDetails =()=>{
+
+            var em = document.getElementById("cemail").value;
+
+            console.log(em);
+
+           
+          //  console.log(document.getElementById('card').display);
+
+
+            axios.get(`http://localhost:8017/userdetails/${em}`).then(res=>{
+
+              
+
+                localStorage.setItem('canddetails',JSON.stringify(res.data));
+
+              document.getElementById("card").style.display='block';
+
+              setDetails(' ');
+
+              toast.success("details fetched succesfully");
+         }).catch(res=>{
+
+          console.log(res);
+
+          toast.error("sorry try again");
+
+         })
+
+    }
+
     
 
    
@@ -150,7 +212,114 @@ const Reports = () => {
 
   return (
 
-    
+      authid == 3 ? 
+              <div>
+                <Navbar/>
+                <div   className='details  ' style={{display: 'flex',  justifyContent:'center', alignItems:'center',alignContent:'center'}}>
+            
+                <div class="form-group row mt-5">
+       <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Enter Email
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="email" id='cemail'  class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
+        </div>
+      <center>  <Button     style={{  width:'5cm'  }}  className='btn btn-primary' onClick={viewDetails} > View Details</Button>
+      </center></div>
+            
+            
+            
+            <Card  id="card"  className="card-details mt-5">
+
+    <Card.Body>
+
+    <img src={localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).profilepic : ''} className="card-image"></img>
+
+
+<Table borderless>
+<tbody>
+<tr>
+<td><b>First Name :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).firstname : ''}</td>
+</tr>
+<tr>
+<td><b>Middle Name :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).middlename : ''}</td>
+</tr>
+<tr>
+<td><b>Last Name :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).lastname : ''}</td>
+</tr>
+<tr>
+<td><b>Date Of Birth :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).dateofbirth : ''}</td>
+</tr>
+<tr>
+<td><b>Personal Email ID:</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).personalemail : ''}</td>
+</tr>
+<tr>
+<td><b>Mobile Number :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mobilenumber : ''}</td>
+</tr>
+<tr>
+<td><b>Department :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).salary : ''}</td>
+</tr>
+<tr>
+<td><b>Role :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).role : ''}</td>
+</tr>
+<tr>
+<td><b>Monthly Pay :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).department.department : ''}</td>
+</tr>
+<tr>
+<td><b>Alternate Mobile Number :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).alternatemobilenumber : ''}</td>
+</tr>
+<tr>
+<td><b>Father Name :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).fathername : ''}</td>
+</tr>
+<tr>
+<td><b>Father Mobile Number :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).fathermobilenumber : ''}</td>
+</tr>
+<tr>
+<td><b>Mother Name :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mothername : ''}</td>
+</tr>
+<tr>
+<td><b>Mother Mobile Number :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mothermobilenumber : ''}</td>
+</tr>
+<tr>
+<td><b>Address Line 1 :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).addressone : ''}</td>
+</tr>
+<tr>
+<td><b>Address Line 2 :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).addresstwo : ''}</td>
+</tr>
+<tr>
+<td><b>Pincode :</b></td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).pincode : ''}</td>
+</tr>
+
+</tbody>
+</Table>
+
+
+
+</Card.Body>
+</Card>
+        </div>
+        <ToastContainer/>
+         </div>
+             
+
+        :(
       
       show==false? 
 
@@ -352,7 +521,7 @@ const Reports = () => {
   </Card>
         </div>
         <ToastContainer/>
-    </div>)
+    </div>))
   )
 }
 

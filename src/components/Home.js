@@ -18,6 +18,8 @@ function Home(props) {
 
     //console.log(authid);
 
+    console.log(JSON.parse(localStorage.getItem('userdata')));
+
 
   const navigate= useNavigate();
 
@@ -38,7 +40,10 @@ function Home(props) {
           'cemail':'',
           'cpassword':'',
           'cdept':'',
-          'csal':''
+          'csal':'',
+          'cname':'',
+          'cloc':'',
+          'crole':''
     }
 
     
@@ -64,7 +69,7 @@ function Home(props) {
 
         for(let i=0;i<1;i++)
         {
-            password=password+sp.charAt(Math.floor(Math.random()*7));
+            password=password+sp.charAt(Math.floor(Math.random()*3));
         }
 
         for(let i=0;i<4;i++)
@@ -89,6 +94,14 @@ function Home(props) {
         document.getElementById("cpassword").value=cp;
 
         //  console.log(candidateEmail, document.getElementById("cpassword").value);
+
+          console.log(cand);
+
+        if(!cand.cpassword||!cand.cdept||!cand.cemail||!cand.cloc||!cand.cname||!cand.csal||!cand.crole)
+        {
+            toast.error("fill all the details!!!");
+            return 
+        }
 
 
           console.log(cand);
@@ -258,17 +271,36 @@ function Home(props) {
         <div class="col-sm-10">
         <input type="email"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
         </div>
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Name
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="text"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter name' name='cname' />
+        </div>
         <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Department
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
         <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter department' name='cdept' />
         </div>
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Role
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter Role' name='crole' />
+        </div>
         <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Monthly Pay
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
         <input type="number"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter pay' name='csal' />
+        </div>
+
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Location
+       <b className='req'> *</b>
+       </label>
+        <div class="col-sm-10">
+        <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter location' name='cloc' />
         </div>
         </div>
         <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="cpassword"  id="cpassword"></input>
