@@ -25,6 +25,8 @@ function Home(props) {
 
   const form = useRef();
 
+  const form1=useRef();
+
   const [firstname,setFirstName]=useState("");
   const [middleName,setMiddleName]=useState("");
   const [lastname,setLastName]=useState("");
@@ -153,7 +155,7 @@ function Home(props) {
 
   
 
-  const sendEmail=(e)=>{
+  const sendEmail= async (e)=>{
     e.preventDefault();
 
     if(!firstname||!lastname||!email)
@@ -167,21 +169,28 @@ function Home(props) {
 
             let virtusaemail = firstname+middleName+lastname+"@virtusa.com";
 
-            axios.post(`http://localhost:8017/generatemail/${email}/${virtusaemail}/${password}`).then(
-              ()=>{
-                emailjs.sendForm('service_pnzzwnz', 'template_8zsenzm', form.current, '4Ctb_sqQaySydPYc-')
+            console.log(virtusaemail);
+
+            console.log(password);
+
+            document.getElementById("pass_word").value=password;
+
+            axios.post(`http://localhost:8017/generatemail/${email}/${virtusaemail}/${password}`).then(res=>
+           {
+                emailjs.sendForm('service_pnzzwnz', 'template_8zsenzm', form1.current, '4Ctb_sqQaySydPYc-')
                 .then((result) => {
                     console.log(result.text);
                 }, (error) => {
                     console.log(error.text);
                 });
-          
-                toast.success("Check your mail");
-              }
-            ).catch(()=>{
-              toast.error("Sorry try again");
-            });
 
+                toast.success("check your mail");
+
+                console.log(res);
+          
+           }).catch(res=>{
+                console.log(res);
+           })
          
     }
       
@@ -206,7 +215,7 @@ function Home(props) {
       <Card   className='card-home'>
       <Card.Body>
 
-          <form  ref={form} >
+          <form  ref={form1} >
           <div class="form-group row">
        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Email
        <b className='req'> *</b>
@@ -238,7 +247,7 @@ function Home(props) {
         <input type="text"   onChange={e=>{setLastName(e.target.value)}} class="form-control form-control-sm" placeholder='enter last name' name="last_name" />
         </div>
         </div><br></br>
-          <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="password"  id="password"></input>
+          <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="pass_word"  id="pass_word"></input>
         </form>
 
         <button  class="btn btn-primary "  onClick={sendEmail} >Submit</button>
