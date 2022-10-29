@@ -9,6 +9,7 @@ import Navbar from './Navbar'
 import './Documents.css'
 import { useState } from 'react';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 import {toast,ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,6 +22,8 @@ const Letter = () => {
         'username': localStorage.getItem('username')
 
       }
+      
+      const [authid,setAuthId]=useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
 
       const [docurl,setDocUrl]=useState(documents);
 
@@ -49,7 +52,7 @@ const Letter = () => {
 
       }
 
-
+   const[employee,setEmployee]=useState();
 
 
 
@@ -95,13 +98,78 @@ const Letter = () => {
           
 
    
-} 
+}    
+
+const openInNewTab = url => {
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
 
 
 
+    var urlresume;
+    var urlmarksheets;
+    const viewDocuments=async()=>{
+      console.log(employee)
+    await axios.get(`http://localhost:8017/userdetails/${employee}`).then(res=>{
+             
+             urlresume=res.data.resume;
+             urlmarksheets=res.data.marksheets;
 
+             document.getElementById("urll").style.display='block';
+
+             document.getElementById("resurl").href=urlresume;
+
+             document.getElementById("markurl").value=urlmarksheets;
+
+            console.log( document.getElementById("markurl").value);
+
+         }).catch(res=>{
+          console.log(res.data.resume);
+         })
+   }
+   const mystyle = {
+    color: "white",
+    padding: "10px",
+    fontFamily: "Arial",
+    display: "flex",
+    justifyContent: "center"
+  };
+
+  const printDocuments=()=>{
+    console.log(urlresume);
+    console.log(urlmarksheets); 
+  }
 
   return (
+    
+    authid==3?
+    <div>
+      <Navbar/>
+      <p style={{textAlign:"center",color:"red",fontSize:"20px"}}>Enter the candidate's name whose files need to be fetched</p>
+    <div >
+       <div style={mystyle}>
+       <input type="email" onChange={(e)=>{setEmployee (e.target.value);
+
+        document.getElementById("urll").style.display='none';
+        
+      }}></input>
+       <button type="submit" onClick={viewDocuments} className="btn btn-primary" style={{marginLeft:10}}>submit</button>
+       </div>
+       <div style={mystyle}>
+          <button type="submit" onClick={printDocuments} className="btn btn-primary" style={{marginLeft:10}}>view Documents</button>
+       </div>
+       
+    </div>
+
+     <center><div id="urll" style={{  display:'none'  }} >
+       <a href=""  target="_blank" id="resurl"   > Resume </a> <br></br>
+         
+        <Button onClick={ e=> openInNewTab(e.target.value)  }  value="" id="markurl" > marksheets</Button>
+
+      </div></center>
+
+    </div>
+    :(
     <div>
     <Navbar/>
     <div style={{display:"flex",height:440,alignItems:"center",justifyContent:"center"}}>
@@ -153,8 +221,12 @@ const Letter = () => {
     <center>
     <Button class="btn btn-primary" id='docsave' onClick={saveDocuemnts} > Save Documents </Button>
     </center>
+
+      
+
     <ToastContainer/>
   </div>
+  )
   )
 }
 

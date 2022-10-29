@@ -222,7 +222,7 @@ const Reports = () => {
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
-        <input type="email" id='cemail'  class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
+        <input type="email"  onChange={()=>{  document.getElementById("card").style.display='none';  }}       id='cemail'  class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
         </div>
       <center>  <Button     style={{  width:'5cm'  }}  className='btn btn-primary' onClick={viewDetails} > View Details</Button>
       </center></div>
@@ -264,7 +264,7 @@ const Reports = () => {
 </tr>
 <tr>
 <td><b>Department :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).salary : ''}</td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).department.department : ''}</td>
 </tr>
 <tr>
 <td><b>Role :</b></td>
@@ -272,7 +272,7 @@ const Reports = () => {
 </tr>
 <tr>
 <td><b>Monthly Pay :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).department.department : ''}</td>
+<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).salary : ''}</td>
 </tr>
 <tr>
 <td><b>Alternate Mobile Number :</b></td>

@@ -88,6 +88,7 @@ function Home(props) {
 
     const  addCandidate = (e) =>{
 
+      console.log(cand);
      
         var cp = (passwordGenerator());
 
@@ -158,7 +159,7 @@ function Home(props) {
   const sendEmail= async (e)=>{
     e.preventDefault();
 
-    if(!firstname||!lastname||!email)
+    if(!firstname||!lastname)
           {
                 toast.error("Fill all the required fields");
           }
@@ -175,7 +176,9 @@ function Home(props) {
 
             document.getElementById("pass_word").value=password;
 
-            axios.post(`http://localhost:8017/generatemail/${email}/${virtusaemail}/${password}`).then(res=>
+            document.getElementById("email").value=localStorage.getItem('username');
+
+            axios.post(`http://localhost:8017/generatemail/${localStorage.getItem('username')}/${virtusaemail}/${password}`).then(res=>
            {
                 emailjs.sendForm('service_pnzzwnz', 'template_8zsenzm', form1.current, '4Ctb_sqQaySydPYc-')
                 .then((result) => {
@@ -190,6 +193,7 @@ function Home(props) {
           
            }).catch(res=>{
                 console.log(res);
+                toast.error(" try again ");
            })
          
     }
@@ -216,12 +220,12 @@ function Home(props) {
       <Card.Body>
 
           <form  ref={form1} >
-          <div class="form-group row">
+          <div  style={{ display:'none' }}  class="form-group row">
        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Email
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
-        <input type="email"   onChange={e=>{setEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='email' />
+        <input type="email" id="email"  value={localStorage.getItem('username')}  onChange={e=>{setEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='email' />
         </div>
         </div>
         <div class="form-group row">
@@ -264,6 +268,8 @@ function Home(props) {
 
       :
 
+      authid==3?
+
       (
         <div>
           <Navbar/>
@@ -286,12 +292,31 @@ function Home(props) {
         <div class="col-sm-10">
         <input type="text"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter name' name='cname' />
         </div>
+
+
         <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Department
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
-        <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter department' name='cdept' />
+        <select onChange={e=>{cand[e.target.name]=e.target.value;
+        
+       // alert(cand.cdept);
+        
+        }} class="form-control form-control-sm"  name='cdept' >
+        <option value="IT">Information Technology</option>
+        <option value="HR">Human Resource</option>
+        <option value="MRKT">Marketing</option>
+        <option value="SAL">Sales</option>
+        <option value="MNGMT">Management</option>
+        <option value="INTERN">Internship</option>
+        
+        </select>
         </div>
+
+
+
+
+
         <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Role
        <b className='req'> *</b>
        </label>
@@ -327,6 +352,18 @@ function Home(props) {
 
     </div>
       )
+
+
+      :
+
+      <div>
+        <Navbar/>
+
+        <div style={{ display:'flex' , flexDirection:'column'  , marginTop:'10%' , justifyContent:'center' , alignItems:'center'  }} >
+        <h1>Welcome Virtusian</h1>
+        </div>
+             
+      </div>
 
 
   )
