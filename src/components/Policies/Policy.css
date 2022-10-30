@@ -12,7 +12,10 @@
     margin-right: auto;
     text-align: justify;
 }
-
+.agreementText {
+    height: 75%;
+    overflow: auto;
+}
 .content > h1 {
     text-align: center;
     margin: 20px 0;

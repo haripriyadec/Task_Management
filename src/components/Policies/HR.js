@@ -10,10 +10,12 @@ export default function HR(){
     var url = `http://localhost:8017/policies/${localStorage.username}`;
     useEffect(()=>{
         axios.get(url).then(data => {
+            setUserData(data.data);
             setCheck(data.data.hrPolicy);
             setAlreadyAccepted(data.data.hrPolicy);
         })
     },[]);
+    const [userData, setUserData] = useState([]);
     const [alreadyAccepted, setAlreadyAccepted] = useState(false);
     const [check, setCheck] = useState(false);
     const submitForm = ()=>{
@@ -42,11 +44,14 @@ export default function HR(){
             <div>
             <div className="content">
                 <h1>HR Agreement</h1>
-                <div className="agreementText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mollis vestibulum orci, non bibendum velit ullamcorper quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc rutrum ut felis non hendrerit. Pellentesque sed quam sed neque aliquam eleifend. Nulla facilisi. Sed elementum libero et tortor consequat dignissim. Vestibulum at laoreet sem, et ultrices sapien. Vivamus tempus massa a mauris dapibus, quis eleifend dolor fringilla. Etiam non erat non enim rutrum consectetur eget nec enim. Fusce commodo ligula at leo iaculis, a varius erat tincidunt. In faucibus enim vehicula diam maximus, eget pharetra mi dictum. Proin pretium ultricies dolor. Ut ipsum lectus, ultrices in dui sed, venenatis tempus urna.
-
-Nulla dictum vel lorem vel placerat. Donec et sapien et libero scelerisque tincidunt id in mi. Praesent ex risus, eleifend a ligula sit amet, commodo pulvinar orci. Pellentesque tristique ligula a libero maximus commodo. Fusce nec purus gravida justo tempor pellentesque quis nec magna. Nulla consequat dui non turpis molestie, sed hendrerit leo varius. Aliquam a magna magna. Donec vitae massa a urna porta posuere.
-
-In hac habitasse platea dictumst. Aenean condimentum, erat id placerat vehicula, sem eros accumsan eros, id vestibulum dui erat et est. Quisque pellentesque maximus felis, eu dapibus erat semper ac. Nulla malesuada ex venenatis ligula luctus dapibus. Aenean aliquam elementum lacus tincidunt congue. Phasellus et mattis elit. Maecenas gravida, dui eu tincidunt rhoncus, quam leo efficitur nibh, vitae finibus ipsum felis eget ipsum. Aliquam tempus, lacus eu faucibus molestie, mauris turpis eleifend dui, egestas fringilla libero tellus ut libero. Nullam nunc leo, blandit nec felis ut, placerat aliquam magna.
+                <div className="agreementText">
+                This contract is made between Virtusa and {userData.firstname} {userData.lastname}. This document constitutes an employment agreement between these two parties.<br></br>
+WHEREAS the Employer desires to retain the services of the Employee, and the Employee desires to render such services, these terms and conditions are set forth.<br></br>
+IN CONSIDERATION of this mutual understanding, the parties agree to the following terms and conditions:<br></br><br></br>
+The Employee agrees that he or she will faithfully and to the best of their ability to carry out the duties and responsibilities communicated to them by the Employer. The Employee shall comply with all company policies, rules and procedures at all times.<br></br><br></br>
+As a {userData.role}, it is the duty of the Employee to perform all essential job functions and duties. From time to time, the Employer may also add other duties within the reasonable scope of the Employee’s work.<br></br><br></br>
+The Employee has the right to participate in any benefits plans offered by the Employer.<br></br><br></br>
+It is understood that the first 2 months of employment constitutes a probationary period. During this time, the Employee is not eligible for paid time off or other benefits. During this time, the Employer also exercises the right to terminate employment at any time without advanced notice.<br></br><br></br>
                 </div>
                 <div className="agree">
                     <input className='accept' type="checkbox" checked={check} onChange={checkboxHandler}/>
