@@ -127,15 +127,12 @@ function Home(props) {
 
             else
             {
-
               emailjs.sendForm('service_pnzzwnz', 'template_yk5q6bt', form.current, '4Ctb_sqQaySydPYc-')
                 .then((result) => {
                     console.log(result.text);
                 }, (error) => {
                     console.log(error.text);
                 });
-
-
 
               toast.success("Candidate added");
             }
