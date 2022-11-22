@@ -171,18 +171,20 @@ function Login() {
                   localStorage.setItem('USER_KEY',res.data.token);
                   localStorage.setItem('username',user.userName);
 
-                  axios.get(`http://localhost:8017/userdetails/${localStorage.getItem('username')}`).then(res=>{
+                  axios.get(`http://localhost:8017/userdetails/${user.userName}`).then(res=>{
                     // console.log(res);
                     
                     localStorage.setItem('userdata',JSON.stringify(res.data));
 
-                    
+                    navigate("/home");
 
+                   }).catch(err=>{
+                      console.log(err)
                    })
                   
                    
 
-                   navigate("/home");
+                   
                    
                 }
               
