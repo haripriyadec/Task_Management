@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { AxiosContext } from 'react-axios/lib/components/AxiosProvider';
 import axios from 'axios'
 import Table from 'react-bootstrap/Table';
-import profilepic from '../components/profilepic.png'
 
-const Reports = () => {
+const Details = () => {
 
     //  console.log("hello world");
   
@@ -18,17 +17,11 @@ const Reports = () => {
 
     const [authid,setAuthId]=useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
 
-    const [pic,setPic]=useState(profilepic);
-
       async function charan(){
 
         await axios.get(`http://localhost:8017/userdetails/${localStorage.getItem('username')}`).then(res=>{
              //console.log(res);        
             localStorage.setItem('userdata',JSON.stringify(res.data));
-
-          //console.log(JSON.parse(localStorage.getItem('userdata')).profilepic);
-
-
          })
         }
 
@@ -43,45 +36,11 @@ const Reports = () => {
     'middlename': localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).middlename:'',
     'pincode':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).pincode:'',
     'mobilenumber':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).mobilenumber:'',
-    'alternatemobilenumber':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).alternatemobilenumber:'',
-    'fathername':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).fathername:'',
-    'mothername':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).mothername:'',
-    'fathermobilenumber':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).fathermobilenumber:'',
-    'mothermobilenumber':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).mothermobilenumber:'',
-    'addressone':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).addressone:'',
-    'addresstwo':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).addresstwo:'',
     'dateofbirth':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).dateofbirth:'',
     'personalemail':localStorage.getItem('userdata')!=null ? JSON.parse(localStorage.getItem('userdata')).personalemail:'',
-     'profilepic': JSON.parse(localStorage.getItem('userdata')).profilepic
 
   }    
 
-
-      // const canddet={
-      //         'firstname':'',
-      //         'middlename':'',
-      //         'lastname':'',
-      //         'fathername':'',
-      //         'mothername':'',
-      //         'mobilenumber':'',
-      //         'alternatemobilenumber':'',
-      //         'fathermobilenumber':'',
-      //         'mothermobilenumber':'',
-      //         'addressone':'',
-      //         'addresstwo':'',
-      //         'dateofbirth':'',
-      //         'location':'',
-      //         'department':'',
-      //         'salary' : '',
-      //         'pincode':'',
-      //         'personalemail':'',
-      //         'profilepic':''
-
-      // }
-
-
-
-      // const [cand,setCand]=useState(canddet);
 
       
 
@@ -134,43 +93,7 @@ const Reports = () => {
 
       setShow(!show);
 
-    }
-
-
-
-    const postDetails =  async (pics)=>{
-
-          document.getElementById('save').disabled=true;
-
-          console.log(pics);     
-          const data = new FormData();
-          data.append("file", pics);
-          data.append("upload_preset", "project-pdf");
-          data.append("cloud_name", "charan464");
-          console.log(data);
-           await fetch("https://api.cloudinary.com/v1_1/charan464/image/upload", {
-            method: "post",
-            body: data,
-          }).then((res) => res.json()).then((data) => {
-
-                details.profilepic=data.url;
-
-              // console.log(details.profilepic);
-
-             // console.log(data);
-
-              toast.success("profile pic  uploaded succesfully");
-
-            })
-            .catch((err) => {
-              console.log(err);
-              toast.error("try again");
-            });
-
-
-            document.getElementById('save').disabled=false;
-  } 
-
+  }
 
     const viewDetails =()=>{
 
@@ -212,7 +135,7 @@ const Reports = () => {
 
   return (
 
-      authid == 3 ? 
+      authid == 2 ? 
               <div>
                 <Navbar/>
                 <div   className='details  ' style={{display: 'flex',  justifyContent:'center', alignItems:'center',alignContent:'center'}}>
@@ -232,8 +155,6 @@ const Reports = () => {
             <Card  id="card"  className="card-details mt-5">
 
     <Card.Body>
-
-    <img src={localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).profilepic : ''} className="card-image"></img>
 
 
 <Table borderless>
@@ -262,51 +183,6 @@ const Reports = () => {
 <td><b>Mobile Number :</b></td>
 <td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mobilenumber : ''}</td>
 </tr>
-<tr>
-<td><b>Department :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).department.department : ''}</td>
-</tr>
-<tr>
-<td><b>Role :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).role : ''}</td>
-</tr>
-<tr>
-<td><b>Monthly Pay :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).salary : ''}</td>
-</tr>
-<tr>
-<td><b>Alternate Mobile Number :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).alternatemobilenumber : ''}</td>
-</tr>
-<tr>
-<td><b>Father Name :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).fathername : ''}</td>
-</tr>
-<tr>
-<td><b>Father Mobile Number :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).fathermobilenumber : ''}</td>
-</tr>
-<tr>
-<td><b>Mother Name :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mothername : ''}</td>
-</tr>
-<tr>
-<td><b>Mother Mobile Number :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).mothermobilenumber : ''}</td>
-</tr>
-<tr>
-<td><b>Address Line 1 :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).addressone : ''}</td>
-</tr>
-<tr>
-<td><b>Address Line 2 :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).addresstwo : ''}</td>
-</tr>
-<tr>
-<td><b>Pincode :</b></td>
-<td>{localStorage.getItem('canddetails')!=null ? JSON.parse(localStorage.getItem('canddetails')).pincode : ''}</td>
-</tr>
-
 </tbody>
 </Table>
 
@@ -341,7 +217,6 @@ const Reports = () => {
 
         <Card.Body>
 
-        <img src={details.profilepic} className="card-image"></img>
         
 
       <Table borderless>
@@ -369,38 +244,6 @@ const Reports = () => {
         <tr>
           <td><b>Mobile Number :</b></td>
           <td>{details.mobilenumber}</td>
-        </tr>
-        <tr>
-          <td><b>Alternate Mobile Number :</b></td>
-          <td>{details.alternatemobilenumber}</td>
-        </tr>
-        <tr>
-          <td><b>Father Name :</b></td>
-          <td>{details.fathername}</td>
-        </tr>
-        <tr>
-          <td><b>Father Mobile Number :</b></td>
-          <td>{details.fathermobilenumber}</td>
-        </tr>
-        <tr>
-          <td><b>Mother Name :</b></td>
-          <td>{details.mothername}</td>
-        </tr>
-        <tr>
-          <td><b>Mother Mobile Number :</b></td>
-          <td>{details.mothermobilenumber}</td>
-        </tr>
-        <tr>
-          <td><b>Address Line 1 :</b></td>
-          <td>{details.addressone}</td>
-        </tr>
-        <tr>
-          <td><b>Address Line 2 :</b></td>
-          <td>{details.addresstwo}</td>
-        </tr>
-        <tr>
-          <td><b>Pincode :</b></td>
-          <td>{details.pincode}</td>
         </tr>
         
         </tbody>
@@ -465,51 +308,9 @@ const Reports = () => {
 
 
 
-      <Form.Group className="mb-3" >
-        <Form.Label>Father's Name <FormText className="req">*</FormText></Form.Label>
-        <Form.Control  value={details.fathername} name="fathername" required={true}   type="text" placeholder="Enter Father Name"  onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label >Father's Mobile Number <FormText className="req">*</FormText></Form.Label>
-        <Form.Control value={details.fathermobilenumber} name="fathermobilenumber"  type="number" placeholder="Enter Father Mobile Number"   onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label>Mother's Name <FormText className="req">*</FormText></Form.Label>
-        <Form.Control  value={details.mothername} name="mothername"  required={true}   type="text" placeholder="Enter Mother Name"  onChange={e=>{onValueChange(e)}}  />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label>Mother's Mobile Number <FormText className="req">*</FormText></Form.Label>
-        <Form.Control name="mothermobilenumber" value={details.mothermobilenumber} type="number" placeholder="Enter Mother Mobile Number"   onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label>Address Line 1 <FormText className="req">*</FormText></Form.Label>
-        <Form.Control value={details.addressone} name="addressone"  required={true}  type="text" placeholder="Enter address line 1"  onChange={e=>{onValueChange(e)}}  />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label>Address Line 2</Form.Label>
-        <Form.Control value={details.addresstwo} name="addresstwo"  type="text" placeholder="Enter address line 2"   onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-
-      <Form.Group className="mb-3" >
-        <Form.Label>Pincode <FormText className="req">*</FormText></Form.Label>
-        <Form.Control  value={details.pincode} name="pincode"  required={true}  type="number" placeholder="Enter pincode"   onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-
      
-      
       </Form>
 
-      <label class="uploadLabel" style={{backgroundColor:'rgba(241, 187, 10, 0.97)',color:'black'}} >
-      <i class="fas fa-file-upload"></i> 
-
-    <input type="file" class="uploadButton"    onChange={(e) => postDetails(e.target.files[0])}/>
-    Upload Profilepic
-    </label>
 
     <span className='btt'>
     <Button style={{width:'5rem'}} id="save" type="submit"  onClick={handleSubmit} >
@@ -525,351 +326,5 @@ const Reports = () => {
   )
 }
 
-export default Reports;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState ,useEffect, Component } from 'react'
-// import Navbar from './Navbar'
-// import { Card,Button ,Form,FormText, Toast} from 'react-bootstrap'
-// import './Details.css'
-// import {toast,ToastContainer} from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import { AxiosContext } from 'react-axios/lib/components/AxiosProvider';
-// import axios from 'axios'
-// import Table from 'react-bootstrap/Table';
-
-// class Reports extends Component
-// {
-
-//     constructor(props)
-//     {
-//       super(props)
-//        this.state={
-//             show:false
-//        }
-//     }
-
-    
-
-        
-//                details =  {
-//                                   'firstname':'',
-//                                   'lastname':'',
-//                                   'middlename':'',
-//                                   'pincode':'',
-//                                   'mobilenumber':'',
-//                                   'alternatemobilenumber':'',
-//                                   'fathername':'',
-//                                   'mothername':'',
-//                                   'fathermobilenumber':'',
-//                                   'mothermobilenumber':'',
-//                                   'addressone':'',
-//                                   'addresstwo':'',
-//                                   'dateofbirth':'02/15/2001',
-//                                   'personalemail':''
-//                }
-
-
-
-//      onValueChange(e)
-//     {
-
-//         //console.log(e.target.name,e.target.value);
-
-//         this.details[e.target.name]=e.target.value
-//         console.log(this.details);
-
-//         localStorage.setItem('details',this.details);
-
-//     }
-
-
-
-//     handleSubmit()
-//     {
-
-//       // if(!details.ad1||!details.dob||!details.fathermobilenumber||!details.mothermobilenumber
-//       // ||!details.fathername||!details.mothername||!details.pincode||!details.firstname||!details.lastname
-//       // ||!details.mobilenumber||!details.personalemail)
-//       // {
-//       //    toast.error("fill all the details");
-//       // }
-
-//       //   else
-//         {
-
-//           var userdata = (localStorage.getItem('details'));
-
-//           axios({
-//             method:'POST',
-//             url:`http://localhost:8017/details/${localStorage.getItem('username')}`,
-//             headers:{
-//               'Authorization':'Bearer '  + localStorage.getItem('USER_KEY'),
-//               'Content-Type': 'application/json'
-//           },
-//            data:userdata
-//           }).then(()=>{
-//             toast.success("details saved successfully");
-//           }).catch(res=>{
-//             console.log(res);
-//             toast.error("try again");
-//           })
-
-//          }
-
-//      }
-
-
-//     toggle()
-//     {
-
-//        this,
-
-//     }
-
-        
-
-//         render()
-//         {
-
-//           console.log(this.state.show);
-
-//           return (
-
-//           this.state.show==false?
-          
-//           <div  ><Navbar/>
-//           <div   className='details' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-//           <h1>Your Personal Details</h1>
-//             <Card  className="card-details">
-//           <Card.Body>
-  
-  
-//         <Table borderless>
-//         <tbody>
-//           <tr>
-//             <td><b>First Name :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).firstname}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Middle Name :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).middlename}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Last Name :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).lastname}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Date Of Birth :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).dateofbirth}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Personal Email ID:</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).personalemail}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Mobile Number :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).mobilenumber}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Alternate Mobile Number :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).alternatemobilenumber}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Father Name :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).fathername}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Father Mobile Number :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).fathermobilenumber}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Mother Name :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).mothername}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Mother Mobile Number :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).mothermobilenumber}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Address Line 1 :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).addressone}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Address Line 2 :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).addresstwo}</td>
-//           </tr>
-//           <tr>
-//             <td><b>Pincode :</b></td>
-//             <td>{JSON.parse(localStorage.getItem('userdata')).pincode}</td>
-//           </tr>
-          
-//           </tbody>
-//       </Table>
-    
-  
-  
-  
-//           <span className='btt'>
-//            <Button style={{width:'5rem'}}  type="submit"  onClick={this.toggle} >
-//                EDIT
-//            </Button>
-//            </span>
-       
-//         </Card.Body>
-//       </Card>
-//             </div>
-//             <ToastContainer/>
-//         </div>:
-                  
-  
-//     <div ><Navbar/>
-//       <div   className='details' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-//         <h1>Personal Details</h1>
-//         <Card  className="card-details">
-//     <Card.Body>
-    
-//     <Form>
-//       <Form.Group className="mb-3" >
-//         <Form.Label>First Name <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control    required={true}  name="firstname"  type="text" placeholder="Enter First Name"  onChange={e=>{this.onValueChange(e)}} />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Middle Name </Form.Label>
-//         <Form.Control name="middlename"  type="text" placeholder="Enter Middle Name"  onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Last Name <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control  name="lastname" required={true}   type="text" placeholder="Enter Last Name"   onChange={e=>{this.onValueChange(e)}} />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Personal Email <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control  name="personalemail" required={true}   type="email" placeholder="Enter email address"    onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Mobile Number <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control  name="mobilenumber" required={true}   type="number" placeholder="Enter Mobile Number"    onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Alternate Mobile Number <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control name="alternatemobilenumber" required={true}   type="number" placeholder="Enter Mobile Number"   onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Date Of Birth <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control    required={true} name="dateofbirth"  type="date" placeholder="Enter Mobile Number"    onChange={e=>
-//           {this.onValueChange(e);
-//           }} />
-//       </Form.Group>
-
-
-
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Father's Name <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control   name="fathername" required={true}   type="text" placeholder="Enter Father Name"  onChange={e=>{this.onValueChange(e)}}   />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label >Father's Mobile Number <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control name="fathermobilenumber"  type="number" placeholder="Enter Father Mobile Number"   onChange={e=>{this.onValueChange(e)}}   />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Mother's Name <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control   name="mothername"  required={true}   type="text" placeholder="Enter Mother Name"  onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Mother's Mobile Number <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control name="mothermobilenumber"  type="number" placeholder="Enter Mother Mobile Number"   onChange={e=>{this.onValueChange(e)}}   />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Address Line 1 <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control name="addressone"  required={true}  type="text" placeholder="Enter address line 1"  onChange={e=>{this.onValueChange(e)}}  />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Address Line 2</Form.Label>
-//         <Form.Control  name="addresstwo"  type="text" placeholder="Enter address line 2"   onChange={e=>{this.onValueChange(e)}}   />
-//       </Form.Group>
-
-//       <Form.Group className="mb-3" >
-//         <Form.Label>Pincode <FormText className="req">*</FormText></Form.Label>
-//         <Form.Control name="pincode"  required={true}  type="number" placeholder="Enter pincode"   onChange={e=>{this.onValueChange(e)}}   />
-//       </Form.Group>
-
-      
-//       </Form>
-
-//       <span className='btt'>
-//        <Button style={{width:'5rem'}}  type="submit"  onClick={this.handleSubmit} >
-//             SAVE
-//        </Button>
-//        </span>
-   
-//     </Card.Body>
-//   </Card>
-//         </div>
-//         <ToastContainer/>
-//     </div>
-//           )
-//         }
-// }
-
-
-// export default Reports;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default Details;
 

@@ -15,7 +15,7 @@ function Home(props) {
 
 
     const [authid,setAuthId]=useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
-
+    const [name,setName]=useState(JSON.parse(localStorage.getItem('userdata')).firstname);
     //console.log(authid);
 
     console.log(JSON.parse(localStorage.getItem('userdata')));
@@ -32,20 +32,13 @@ function Home(props) {
   const [lastname,setLastName]=useState("");
   const [email,setEmail]=useState("");
 
-  // const [candidateEmail,setCandidateEmail]=useState()
-  // const [candidatePassword,setCandidatePassword]=useState()
-  // const [candidateDepartment,setCandidateDepartment]=useState()
-  // const [candidateSalary,setCandidateSalary]=useState()
-
-
+ 
     var cand={
           'cemail':'',
           'cpassword':'',
-          'cdept':'',
-          'csal':'',
           'cname':'',
-          'cloc':'',
-          'crole':''
+          'crole':'',
+          
     }
 
     
@@ -100,7 +93,7 @@ function Home(props) {
 
           console.log(cand);
 
-        if(!cand.cpassword||!cand.cdept||!cand.cemail||!cand.cloc||!cand.cname||!cand.csal||!cand.crole)
+         if(!cand.cpassword||!cand.cemail||!cand.cname||!cand.crole||!cand.ctasks)
         {
             toast.error("fill all the details!!!");
             return 
@@ -148,11 +141,6 @@ function Home(props) {
 
     }
 
-
-
-
-  
-
   const sendEmail= async (e)=>{
     e.preventDefault();
 
@@ -197,11 +185,6 @@ function Home(props) {
       
   }
 
-  
-
-
-
-
   return (
 
     
@@ -211,53 +194,10 @@ function Home(props) {
     <div >
          <Navbar/>
       
-       <div  className='home' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-          <h1>Generate Your Mail Id</h1>
-      <Card   className='card-home'>
-      <Card.Body>
-
-          <form  ref={form1} >
-          <div  style={{ display:'none' }}  class="form-group row">
-       <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Email
-       <b className='req'> *</b>
-       </label>
-        <div class="col-sm-10">
-        <input type="email" id="email"  value={localStorage.getItem('username')}  onChange={e=>{setEmail(e.target.value)}} class="form-control form-control-sm"   placeholder='enter email address' name='email' />
+       <div style={{ display:'flex' , flexDirection:'column'  , marginTop:'10%' , justifyContent:'center' , alignItems:'center',color:'blue'  }} >
+        <h1>Welcome Virtusian  {name}</h1>
         </div>
-        </div>
-        <div class="form-group row">
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">First Name
-        <b className='req'> *</b>
-        </label>
-        <div class="col-sm-10">
-        <input type="text"  onChange={e=>{setFirstName(e.target.value)}} class="form-control form-control-sm" placeholder='enter first name'  name='first_name'/>
-        </div>
-        </div>
-        <div class="form-group row">
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3"> Middle Name
-        </label>
-        <div class="col-sm-10">
-        <input type="text"   onChange={e=>{setMiddleName(e.target.value)}}  class="form-control form-control-sm" placeholder='enter middle name'  name='middle_name'/>
-        </div>
-        </div>
-        <div class="form-group row">
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Last Name
-        <b className='req'> *</b>
-        </label>
-        <div class="col-sm-10">
-        <input type="text"   onChange={e=>{setLastName(e.target.value)}} class="form-control form-control-sm" placeholder='enter last name' name="last_name" />
-        </div>
-        </div><br></br>
-          <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="pass_word"  id="pass_word"></input>
-        </form>
-
-        <button  class="btn btn-primary "  onClick={sendEmail} >Submit</button>
-
-
-
-      </Card.Body>
-    </Card>
-    </div>
+   
 
     <ToastContainer/>
 
@@ -265,7 +205,7 @@ function Home(props) {
 
       :
 
-      authid==3?
+      authid==2?
 
       (
         <div>
@@ -290,48 +230,11 @@ function Home(props) {
         <input type="text"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter name' name='cname' />
         </div>
 
-
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Department
-       <b className='req'> *</b>
-       </label>
-        <div class="col-sm-10">
-        <select onChange={e=>{cand[e.target.name]=e.target.value;
-        
-       // alert(cand.cdept);
-        
-        }} class="form-control form-control-sm"  name='cdept' >
-        <option value="IT">Information Technology</option>
-        <option value="HR">Human Resource</option>
-        <option value="MRKT">Marketing</option>
-        <option value="SAL">Sales</option>
-        <option value="MNGMT">Management</option>
-        <option value="INTERN">Internship</option>
-        
-        </select>
-        </div>
-
-
-
-
-
         <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Role
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
         <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter Role' name='crole' />
-        </div>
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Monthly Pay
-       <b className='req'> *</b>
-       </label>
-        <div class="col-sm-10">
-        <input type="number"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter pay' name='csal' />
-        </div>
-
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Location
-       <b className='req'> *</b>
-       </label>
-        <div class="col-sm-10">
-        <input type="text"  onChange={e=>{cand[e.target.name]=e.target.value}} class="form-control form-control-sm"   placeholder='enter location' name='cloc' />
         </div>
         </div>
         <input style={{display:"none"}} type="text" class="form-control form-control-sm" name="cpassword"  id="cpassword"></input>
@@ -365,5 +268,4 @@ function Home(props) {
 
   )
 }
-
-export default Home
+export default Home;

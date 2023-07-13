@@ -27,44 +27,45 @@ export const Sidebardata=[
     ,
 
     {
-        title:'OfferLetter',
-        path:'/offer',
+        title:'User',
+        path:'/candidates',
         icon:<IoCheckboxSharp/>,
         cName:'nav-text'
     }
     ,
     {
-        title:'Documents',
-        path:'/documents',
+        title:'Userlist',
+        path:'/userlist',
         icon:<CgIcons.CgNotes/>,
         cName:'nav-text'
     },
     
     {
-        title:'Service Bond',
-        path:'/service',
+        title:'Task',
+        path:'/work',
         icon:<IoPencil/>,
         cName:'nav-text'
     }
     ,{
-        title:'Policies',
-        path:'/policy',
+        title:'Tasklist',
+        path:'/tasklist',
         icon:<MdPolicy/>,
         cName:'nav-text'
     }
     ,
     ,{
-        title:'Bank Details ',
-        path:'/bank',
+        title:'DashBoard ',
+        path:'/dashboard',
         icon:<BsBank2/>,
         cName:'nav-text'
     }
     ,
     {
-        title:'Traning ',
-        path:'/training',
-        icon:<IoDesktop/>,
-        cName:'nav-text'
+        title: 'Reports',
+        path:'/report',
+        icon: <IoDesktop/>,
+        cName: 'nav-text'
     }
+    
     
 ]

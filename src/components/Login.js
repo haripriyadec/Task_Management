@@ -2,60 +2,35 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card'
 import './Login.css'
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-import {signUser} from '../Service/api'
-import {toast,ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import {userLogin,fetchUserData} from './api/Authentication'
+import { userLogin, fetchUserData } from './api/Authentication'
 import { Toast } from 'react-bootstrap';
 
 function Login() {
+  const [login, setLogin] = useState(true);
+  const [user, setUser] = useState({ userName: '', password: '' });
+  const [user2, setUser2] = useState({ username: '', oldpassword: '', newpassword: '', confirmnewpassword: '' });
+  const [registration, setRegistration] = useState({ firstname: '', lastname: '', email: '', phonenumber: '' });
 
-    const [login,setLogin]=useState(true)
+  const navigate = useNavigate();
 
-    
-
-
-
-
-    const navigate= useNavigate();
-
-    const initialValue = {
-       userName:'',
-       password:''
+  const onValueChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   }
 
-  const initialValue2 = {
-    username:'',
-    oldpassword:'',
-    newpassword:'',
-    confirmnewpassword:''
-
-}
-
-
-    const [user,setUser]=useState(initialValue);
-
-    const onValueChange=(e)=>
-  {
-        setUser({...user,[e.target.name]:e.target.value})
-        //console.log(user);
+  const onValueChange2 = (e) => {
+    setUser2({ ...user2, [e.target.name]: e.target.value });
   }
 
+  const onValueChange3 = (e) => {
+    setRegistration({ ...registration, [e.target.name]: e.target.value });
+  }
 
-  const [user2,setUser2]=useState(initialValue2);
-
-  const onValueChange2=(e)=>
-{
-      setUser2({...user2,[e.target.name]:e.target.value})
-      //console.log(user);
-}
-
-
-
-  const handleChangePassword=()=>
+   const handleChangePassword=()=>
   {
 
     var ualp="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -148,10 +123,16 @@ function Login() {
         //setLogin(!login);
   }
 
+  const handleRegistration = async (e) => {
+    e.preventDefault();
 
-
-  
-
+    try {
+      await axios.post("http://localhost:8017/register", registration);
+      toast.success('Registration successful!');
+    } catch (error) {
+      toast.error('Registration failed. Please try again.');
+    }
+  };
 
     const handleLogin= async()=>{
 
@@ -181,10 +162,7 @@ function Login() {
                    }).catch(err=>{
                       console.log(err)
                    })
-                  
-                   
 
-                   
                    
                 }
               
@@ -198,106 +176,106 @@ function Login() {
     }
 
 
-  return ( 
-
-      login==true
-          ?
-    <div>
-         
-
-    <div className='login'  style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
-           <div className="title"><h2 >EMPLOYEE ONBOARDING SYSTEM</h2></div>
-           <h4>LOGIN</h4>
-            <Card  style={{width:'30rem',height:'20rem'}} className="card-login">
-    <Card.Body>
-    
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control name="userName"  required={true}   type="email" placeholder="Enter email" onChange={e=>{onValueChange(e)}} />
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control name="password" type="password" placeholder="Password" onChange={e=>{onValueChange(e)}}   />
-      </Form.Group>
-      </Form>
-     
-       <Button className="block mb-2"  type="submit" onClick={handleLogin}>
-            login
-       </Button>
-
-        <div  style={{ display:'flex' , justifyContent:'space-between' }}  >
-
-       <a className=" link " onClick={()=>{  setLogin(!login);}} >
-            Change password
-       </a>
-
-      
-
-       </div>
-   
-    </Card.Body>
-  </Card>
+  return (
+   <div>
+      {login === true ? (
+        <div className="login" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <div className="title">
+            <h2>TASK MANAGEMENT PORTAL</h2>
+          </div>
+          <h4>LOGIN</h4>
+          <Card style={{ width: '30rem', height: '20rem' }} className="card-login">
+            <Card.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control name="userName" required type="email" placeholder="Enter email" onChange={onValueChange} />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control name="password" type="password" placeholder="Password" onChange={onValueChange} />
+                </Form.Group>
+              </Form>
+              <Button className="block mb-2" type="submit" onClick={handleLogin}>
+                Login
+              </Button>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <a className="link" onClick={() => setLogin(false)}>
+                  Change password
+                </a>
+                <a className="link" onClick={() => setLogin('register')}>
+                 Register
+                </a>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+      ) : (
+        <div className="login" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Card style={{ width: '30rem', height: '30rem' }} className="card-login">
+            <Card.Body>
+              {login === false && (
+                <>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control name="username" required type="email" placeholder="Enter email" onChange={onValueChange2} />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label>Old Password</Form.Label>
+                      <Form.Control name="oldpassword" type="password" placeholder="Enter Old Password" onChange={onValueChange2} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>New Password</Form.Label>
+                      <Form.Control name="newpassword" type="password" placeholder="Ex: CHara!4545" onChange={onValueChange2} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Confirm New Password</Form.Label>
+                      <Form.Control name="confirmnewpassword" type="password" placeholder="Confirm New Password" onChange={onValueChange2} />
+                    </Form.Group>
+                  </Form>
+                  <Button className="block mb-3" onClick={handleChangePassword}>
+                    Change password
+                  </Button>
+                  <a style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setLogin(true)}>
+                    Go to Login
+                  </a>
+                </>
+              )}
+              {login === 'register' && (
+                <>
+                  <Form>
+                    <Form.Group className="mb-3">
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control name="firstname" required type="text" placeholder="Enter First Name" onChange={onValueChange3} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control name="lastname" required type="text" placeholder="Enter Last Name" onChange={onValueChange3} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control name="email" required type="email" placeholder="Enter email" onChange={onValueChange3} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control name="phonenumber" required type="text" placeholder="Enter Phone Number" onChange={onValueChange3} />
+                    </Form.Group>
+                  </Form>
+                  <Button className="block mb-3" onClick={handleRegistration} >
+                    Register
+                  </Button>
+                  <a style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setLogin(true)}>
+                    Go to Login
+                  </a>
+                </>
+              )}
+            </Card.Body>
+          </Card>
+        </div>
+      )}
+      <ToastContainer />
     </div>
-
-    
-
-    <ToastContainer/>
-    
-    </div>
-
-    :
-
-    (
-      <div>
-      <div className='login'  style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
-      
-       <Card  style={{width:'30rem',height:'30rem'}} className="card-login">
-      <Card.Body>
-
-    <Form>
- <Form.Group className="mb-3" controlId="formBasicEmail">
-   <Form.Label>Email address</Form.Label>
-   <Form.Control name="username"  required={true}   type="email" placeholder="Enter email" onChange={e=>{onValueChange2(e)}} />
- </Form.Group>
-
- <Form.Group className="mb-3" controlId="formBasicPassword">
-   <Form.Label>Old Password</Form.Label>
-   <Form.Control name="oldpassword" type="password" placeholder="Enter Old Password" onChange={e=>{onValueChange2(e)}}   />
- </Form.Group>
-   
-
-
-    <Form.Group className="mb-3" >
-   <Form.Label>New Password</Form.Label>
-   <Form.Control name="newpassword" type="password" placeholder="Ex : CHara!4545" onChange={e=>{onValueChange2(e)}}   />
- </Form.Group>
-   
-
-
-    <Form.Group className="mb-3">
-   <Form.Label>Confirm New Password</Form.Label>
-   <Form.Control name="confirmnewpassword" type="password" placeholder="Confirm New Password" onChange={e=>{onValueChange2(e)}}   />
-  </Form.Group>
-    </Form>
-
-    <Button className="block mb-3" onClick={ handleChangePassword }>Change password</Button>
-    <a style={ { display:'flex' ,  justifyContent:'center' , cursor:'pointer', textDecoration:'underline'  } } onClick={ ()=>{  setLogin(!login) }}>Go to Login </a>
-
-    </Card.Body>
-    </Card>
-    </div>
-
-
-
-<ToastContainer/>
-
-</div>
-
-    )
-
-   
   );
 }
 
