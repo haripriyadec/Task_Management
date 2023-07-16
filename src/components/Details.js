@@ -203,7 +203,7 @@ const Details = () => {
         <div  ><Navbar/>
           
         <div   className='details' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-        <h1>Your Personal Details</h1>
+        <h1>Your Personal Details </h1>
           <Card  className="card-details">
 
           <span className='btt'>
