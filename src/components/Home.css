@@ -2,6 +2,7 @@
 {
     flex-direction: column;
     overflow-y: auto;
+    color:aliceblue;
 }
 
 .card-home

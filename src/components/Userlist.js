@@ -3,23 +3,29 @@ import axios from 'axios';
 import Navbar from './Navbar'
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminDisplay from "../user/AdminDisplay";
 import UserDisplay from "../user/UserDisplay";
+import Home from "../pages/Home";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Userlist() {
-  const [authid,setAuthId]=useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
-return(
-  authid==2?
-    <div> <Navbar/>
-    <AdminDisplay/>
+  const [authid, setAuthId] = useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authid !== 2) {
+      navigate('/home');
+    }
+  }, []);
+
+  return (
+    <div>
+      <Navbar />
+      {authid === 2 ? <AdminDisplay /> : <Home />}
     </div>
-    :(
-      <div> <Navbar/>
-    <UserDisplay/>
-    </div>
-  )
-);
+  );
 }
 
 export default Userlist;

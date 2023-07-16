@@ -38,24 +38,57 @@ function Task() {
     ) : (
       <div>
         <Navbar />
-        <h1
+        <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "10vh",
-            color: "aquablue",
-            background:"whitesmoke"
+            background: "linear-gradient(to bottom right, #FFFFFF, #F5F5F5)",
+            paddingTop: "2rem",
+            paddingBottom: "2rem",
           }}
         >
-          The Task Assigned to {name}:
-        </h1>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-          {users.map((user, index) => (
-            <div key={index} style={{ marginBottom: "10px", padding: "10px", background: "#f2f2f2", borderRadius: "5px" ,color:'blue'}}>
-              {user.taskname}
-            </div>
-          ))}
+          <h1
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "aquablue",
+              fontSize: "2.5rem",
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              margin: 0,
+              padding: "1rem",
+              borderBottom: "1px solid #ccc",
+            }}
+          >
+            Tasks Assigned to {name}
+          </h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              marginTop: "2rem",
+            }}
+          >
+            {users.map((user, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: "10px",
+                  padding: "10px",
+                  background: "#f2f2f2",
+                  borderRadius: "5px",
+                  color: "blue",
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  width: "300px",
+                  textAlign: "center",
+                }}
+              >
+                {user.taskname}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     )

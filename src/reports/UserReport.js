@@ -23,6 +23,18 @@ export default function UserReport() {
 
   return (
     <div className="container">
+        <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "10vh",
+            color: "aquablue",
+            background:"whitesmoke"
+          }}
+        >
+        Reports
+        </h1>
       <div className="py-4">
         <div className="mb-3">
         </div>

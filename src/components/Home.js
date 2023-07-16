@@ -93,7 +93,7 @@ function Home(props) {
 
           console.log(cand);
 
-         if(!cand.cpassword||!cand.cemail||!cand.cname||!cand.crole||!cand.ctasks)
+         if(!cand.cpassword||!cand.cemail||!cand.cname||!cand.crole)
         {
             toast.error("fill all the details!!!");
             return 
@@ -194,9 +194,30 @@ function Home(props) {
     <div >
          <Navbar/>
       
-       <div style={{ display:'flex' , flexDirection:'column'  , marginTop:'10%' , justifyContent:'center' , alignItems:'center',color:'blue'  }} >
-        <h1>Welcome Virtusian  {name}</h1>
-        </div>
+       
+
+
+<div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh',
+  justifyContent: 'center',
+  alignItems: 'center',
+  background: 'linear-gradient(to bottom, #FFD700, #FF8C00)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  color: 'white',
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+}}>
+  <h1 style={{ fontSize: '3rem', marginBottom: '2rem', textAlign: 'center' }}>
+    Welcome Virtusian {name}
+  </h1>
+  <p style={{ fontSize: '1.5rem', textAlign: 'center' }}>
+    Cherish your journey with Virtusa
+  </p>
+</div>
+
+
    
 
     <ToastContainer/>
@@ -211,26 +232,37 @@ function Home(props) {
         <div>
           <Navbar/>
           <div  className='home' style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-          <h1>Add Candidate</h1>
+         <h1
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "10vh",
+            color: "blue",
+            background:"whitesmoke"
+          }}
+        >
+         Add User
+        </h1>
       <Card   className='card-home'>
       <Card.Body>
 
           <form  ref={form} >
           <div class="form-group row">
-       <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Email
+       <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3" style={{color:'black'}}>Email
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
         <input type="email"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter email address' name='cemail' />
         </div>
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Name
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3" style={{color:'black'}}>Name
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">
         <input type="text"  onChange={e=>{ cand[e.target.name]=e.target.value;  }} class="form-control form-control-sm"   placeholder='enter name' name='cname' />
         </div>
 
-        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3">Role
+        <label  for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm mb-3" style={{color:'black'}}>Role
        <b className='req'> *</b>
        </label>
         <div class="col-sm-10">

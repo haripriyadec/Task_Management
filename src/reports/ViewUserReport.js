@@ -26,11 +26,11 @@ export default function ViewUserReport() {
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">View Task Details</h2>
+          <h2 className="text-center m-4">Report</h2>
 
           <div className="card">
             <div className="card-header">
-              <h5 className="card-title">Details of User ID: {user.id}</h5>
+              <h5 className="card-title">Report of User ID: {user.id}</h5>
               <div className="card-body">
                 <p>
                  The task assigned to you is {user.taskname}
