@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaCalendarAlt } from "react-icons/fa";
 
 export default function AddTask() {
   let navigate = useNavigate();
@@ -8,15 +11,28 @@ export default function AddTask() {
   const [user, setUser] = useState({
     taskname: "",
     description: "",
-    duedate: "",
-    status:"",
-    username:"",
+    duedate: new Date(),
+    status: "pending",
+    username: "",
   });
 
-  const { taskname, description, duedate,status ,username} = user;
+  const { taskname, description, duedate, status, username } = user;
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedStatus, setSelectedStatus] = useState("pending");
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const onDateChange = (date) => {
+    setSelectedDate(date);
+    setUser({ ...user, duedate: date });
+  };
+
+  const onStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+    setUser({ ...user, status: e.target.value });
   };
 
   const onSubmit = async (e) => {
@@ -32,13 +48,12 @@ export default function AddTask() {
           <h2 className="text-center m-4">Add Task</h2>
 
           <form onSubmit={(e) => onSubmit(e)}>
-           
             <div className="mb-3">
               <label htmlFor="taskname" className="form-label">
                 Taskname
               </label>
               <input
-                type={"text"}
+                type="text"
                 className="form-control"
                 placeholder="Enter your taskname"
                 name="taskname"
@@ -48,10 +63,10 @@ export default function AddTask() {
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">
-               Description  
+                Description
               </label>
               <textarea
-                type={"text"}
+                type="text"
                 className="form-control"
                 placeholder="Enter your description"
                 name="description"
@@ -61,36 +76,40 @@ export default function AddTask() {
             </div>
             <div className="mb-3">
               <label htmlFor="duedate" className="form-label">
-              DueDate
+                DueDate
               </label>
-              <input
-                type={"text"}
-                className="form-control"
-                placeholder="Enter Date"
-                name="duedate"
-                value={duedate}
-                onChange={(e) => onInputChange(e)}
-              />
+              <div className="input-group">
+                <DatePicker
+                  className="form-control"
+                  selected={selectedDate}
+                  onChange={onDateChange}
+                />
+                <span className="input-group-text calendar-icon">
+                  <FaCalendarAlt />
+                </span>
+              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="Status" className="form-label">
-               Status
+                Status
               </label>
-              <input
-                type={"text"}
+              <select
                 className="form-control"
-                placeholder="Enter Status"
                 name="status"
-                value={status}
-                onChange={(e) => onInputChange(e)}
-              />
+                value={selectedStatus}
+                onChange={onStatusChange}
+              >
+                <option value="pending">Pending</option>
+                <option value="to-do">To-Do</option>
+                <option value="complete">Complete</option>
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="Status" className="form-label">
-              Assign To
+                Assign To
               </label>
               <input
-                type={"text"}
+                type="text"
                 className="form-control"
                 placeholder="Enter username"
                 name="username"
@@ -99,8 +118,6 @@ export default function AddTask() {
               />
             </div>
 
-
-           
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>

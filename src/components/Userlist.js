@@ -5,10 +5,10 @@ import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminDisplay from "../user/AdminDisplay";
-import UserDisplay from "../user/UserDisplay";
 import Home from "../pages/Home";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserNavbar from "./UserNavbar";
 
 function Userlist() {
   const [authid, setAuthId] = useState(JSON.parse(localStorage.getItem('userdata')).authorities[0].id);
@@ -23,7 +23,7 @@ function Userlist() {
   return (
     <div>
       <Navbar />
-      {authid === 2 ? <AdminDisplay /> : <Home />}
+      {authid === 2 ? <AdminDisplay /> : <UserNavbar />}
     </div>
   );
 }

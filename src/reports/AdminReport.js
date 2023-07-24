@@ -37,7 +37,6 @@ export default function AdminReport() {
               <th scope="col">S.N</th>
               <th scope="col">Username</th>
               <th scope="col">Taskname</th>
-              <th scope="col">Status</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -47,12 +46,10 @@ export default function AdminReport() {
                 <th scope="row">{index + 1}</th>
                  <td>{user.username}</td>
                 <td>{user.taskname}</td>
-                <td>{user.duedate}</td>
-                <td>{user.status}</td>
                 <td>
                 <Link className="btn btn-primary mx-2" to={`/adminuserreport/${user.id}`}>
-  Report
-</Link>
+                 Report
+                </Link>
 
                   
                  

@@ -2,6 +2,7 @@ import React ,{useState,useEffect}from "react";
 import Navbar from './Navbar'
 import Home from '../pages/Home';
 import TaskHome from "../pages/TaskHome";
+import UserNavbar from "./UserNavbar";
 
 function Tasklist() {
 
@@ -12,7 +13,7 @@ return(
     <Home/>
     </div>
     :(
-      <div> <Navbar/>
+      <div> <UserNavbar/>
     <TaskHome/>
     </div>
   )

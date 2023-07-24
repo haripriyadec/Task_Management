@@ -10,6 +10,7 @@ import user from './Login'
 import { useNavigate } from 'react-router-dom';
 import {fetchUserData} from './api/Authentication'
 import axios from 'axios'
+import UserNavbar from './UserNavbar'
 
 function Home(props) {
 
@@ -141,49 +142,7 @@ function Home(props) {
 
     }
 
-  const sendEmail= async (e)=>{
-    e.preventDefault();
-
-    if(!firstname||!lastname)
-          {
-                toast.error("Fill all the required fields");
-          }
-
-          else{
-
-            let password = passwordGenerator();
-
-            let virtusaemail = firstname+middleName+lastname+"@virtusa.com";
-
-            console.log(virtusaemail);
-
-            console.log(password);
-
-            document.getElementById("pass_word").value=password;
-
-            document.getElementById("email").value=localStorage.getItem('username');
-
-            axios.post(`http://localhost:8017/generatemail/${localStorage.getItem('username')}/${virtusaemail}/${password}`).then(res=>
-           {
-                emailjs.sendForm('service_pnzzwnz', 'template_8zsenzm', form1.current, '4Ctb_sqQaySydPYc-')
-                .then((result) => {
-                    console.log(result.text);
-                }, (error) => {
-                    console.log(error.text);
-                });
-
-                toast.success("check your mail");
-
-                console.log(res);
-          
-           }).catch(res=>{
-                console.log(res);
-                toast.error(" try again ");
-           })
-         
-    }
-      
-  }
+  
 
   return (
 
@@ -192,7 +151,7 @@ function Home(props) {
     authid==1 ?
 
     <div >
-         <Navbar/>
+         <UserNavbar/>
       
        
 

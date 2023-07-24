@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 const EditUserManage = () => {
@@ -7,12 +7,7 @@ const EditUserManage = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    username: "",
-    password: "",
     firstname: "",
-    role: "",
-    tasks: "",
-    emailGeneration: false,
     middlename: "",
     lastname: "",
     personalemail: "",
@@ -20,7 +15,7 @@ const EditUserManage = () => {
     mobilenumber: ""
   });
 
-  const { username, password, firstname, role, tasks, emailGeneration, middlename, lastname, personalemail, dateofbirth, mobilenumber } = user;
+  const { firstname, middlename, lastname, personalemail, dateofbirth, mobilenumber } = user;
 
   const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -34,7 +29,7 @@ const EditUserManage = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:8017/usermanage/${id}`, user);
-      navigate("/users"); // Redirect to the user list page
+      navigate("/userlist"); // Redirect to the user list page
     } catch (error) {
       console.error(error);
     }
@@ -43,8 +38,7 @@ const EditUserManage = () => {
   const loadData = async () => {
     try {
       const response = await axios.get(`http://localhost:8017/usermanage/${id}`);
-      const userData = response.data;
-      setUser(userData);
+      setUser(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -58,32 +52,6 @@ const EditUserManage = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter your username"
-                name="username"
-                value={username}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter your password"
-                name="password"
-                value={password}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-3">
               <label htmlFor="firstname" className="form-label">
                 First Name
               </label>
@@ -95,46 +63,6 @@ const EditUserManage = () => {
                 value={firstname}
                 onChange={onInputChange}
               />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="role" className="form-label">
-                Role
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter role"
-                name="role"
-                value={role}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="tasks" className="form-label">
-                Tasks
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter tasks"
-                name="tasks"
-                value={tasks}
-                onChange={onInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="emailGeneration" className="form-label">
-                Email Generation
-              </label>
-              <select
-                className="form-control"
-                name="emailGeneration"
-                value={emailGeneration}
-                onChange={onInputChange}
-              >
-                <option value={true}>Enabled</option>
-                <option value={false}>Disabled</option>
-              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="middlename" className="form-label">
@@ -204,7 +132,7 @@ const EditUserManage = () => {
             <button type="submit" className="btn btn-outline-primary">
               Submit
             </button>
-            <Link className="btn btn-outline-danger mx-2" to="/userhome">
+            <Link className="btn btn-outline-danger mx-2" to="/userlist">
               Cancel
             </Link>
           </form>

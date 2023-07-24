@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import AddTask from "../users/AddTask";
 import axios from 'axios';
+import UserNavbar from "./UserNavbar";
 
 function Task() {
   const [authid, setAuthId] = useState(
@@ -37,7 +38,7 @@ function Task() {
       </div>
     ) : (
       <div>
-        <Navbar />
+        <UserNavbar />
         <div
           style={{
             background: "linear-gradient(to bottom right, #FFFFFF, #F5F5F5)",

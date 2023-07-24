@@ -2,6 +2,7 @@ import React ,{useState,useEffect}from "react";
 import Navbar from './Navbar'
 import AdminReport from "../reports/AdminReport";
 import UserReport from "../reports/UserReport";
+import UserNavbar from "./UserNavbar";
 
 function Report() {
 
@@ -12,7 +13,7 @@ return(
     <AdminReport/>
     </div>
     :(
-      <div> <Navbar/>
+      <div> <UserNavbar/>
     <UserReport/>
     </div>
   )

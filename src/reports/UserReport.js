@@ -7,7 +7,7 @@ export default function UserReport() {
  
   const [name, setName] = useState(JSON.parse(localStorage.getItem('userdata')).firstname);
   const [mail, setMail] = useState(JSON.parse(localStorage.getItem('userdata')).username);
- 
+  const [completed,setCompleted]=useState('');
 
   useEffect(() => {
     loadUsers();
@@ -16,8 +16,9 @@ export default function UserReport() {
   const loadUsers = async () => {
     const result = await axios.get("http://localhost:8017/users");
     const filteredTasks = result.data.filter(user => user.username === mail);
-
+    const filterCompleted=users.filter(users=>users.status.toLowerCase() === "complete").length;
     setUsers(filteredTasks);
+    setCompleted(filterCompleted);
   };
 
 
@@ -35,6 +36,7 @@ export default function UserReport() {
         >
         Reports
         </h1>
+        {' '}
       <div className="py-4">
         <div className="mb-3">
         </div>
@@ -45,7 +47,6 @@ export default function UserReport() {
               <th scope="col">S.N</th>
               <th scope="col">Username</th>
               <th scope="col">Taskname</th>
-              <th scope="col">Status</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -55,7 +56,6 @@ export default function UserReport() {
                 <th scope="row">{index + 1}</th>
                 <td>{user.username}</td>
                 <td>{user.taskname}</td>
-                <td>{user.status}</td>
                 <td>
                  <Link className="btn btn-primary mx-2" to={`/viewuserreport/${user.id}`}>
   Report
